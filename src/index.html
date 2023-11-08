@@ -9,10 +9,14 @@
     <link rel="manifest" href="manifest.webmanifest" />
     <meta name="theme-color" content="#1976d2" />
   </head>
+
   <body>
     <app-root></app-root>
     <noscript
       >Please enable JavaScript to continue using this application.</noscript
     >
   </body>
+  <script>
+    var global = global === undefined ? window : global;
+  </script>
 </html>
