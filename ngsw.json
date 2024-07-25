@@ -1,0 +1,89 @@
+{
+  "configVersion": 1,
+  "timestamp": 1721910220790,
+  "index": "/Empathy/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/Empathy/486.729adf7537991841.js",
+        "/Empathy/8.1311afd52df6a7f9.js",
+        "/Empathy/favicon.ico",
+        "/Empathy/index.html",
+        "/Empathy/main.84eacdbed71255d2.js",
+        "/Empathy/manifest.webmanifest",
+        "/Empathy/polyfills.10fc09705e1391cf.js",
+        "/Empathy/runtime.2436edfd8624993c.js",
+        "/Empathy/styles.6fbe14d944709c3e.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/Empathy/assets/icons/icon-128x128.png",
+        "/Empathy/assets/icons/icon-144x144.png",
+        "/Empathy/assets/icons/icon-152x152.png",
+        "/Empathy/assets/icons/icon-192x192.png",
+        "/Empathy/assets/icons/icon-384x384.png",
+        "/Empathy/assets/icons/icon-512x512.png",
+        "/Empathy/assets/icons/icon-72x72.png",
+        "/Empathy/assets/icons/icon-96x96.png",
+        "/Empathy/assets/screens/EmpMenu.png",
+        "/Empathy/assets/screens/EmpMenuPhone.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/Empathy/486.729adf7537991841.js": "0345153716e9cb33b5a128ecd48aa52cf90928cc",
+    "/Empathy/8.1311afd52df6a7f9.js": "cd5cca4dbe1033cebdd991cd12e5fc73999bc951",
+    "/Empathy/assets/icons/icon-128x128.png": "b1f06c7d714abb4a0cc4d1f7c954feb26826e4c4",
+    "/Empathy/assets/icons/icon-144x144.png": "96a0d629765c1bc85d9263c6bc83094ca776d267",
+    "/Empathy/assets/icons/icon-152x152.png": "b1fbbee3902eb96a7658e3bb006f31f78ca5a44c",
+    "/Empathy/assets/icons/icon-192x192.png": "e4211163bf0911688fbfb80278d8ff4d2f77691d",
+    "/Empathy/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/Empathy/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/Empathy/assets/icons/icon-72x72.png": "279825a1ac4377032ae996a1832c641e33ccf1b6",
+    "/Empathy/assets/icons/icon-96x96.png": "592885efcbfee27e5e20be4fa3043589390d2740",
+    "/Empathy/assets/screens/EmpMenu.png": "533a8ff3b9bd636739f474135f4b6fc8f7d02fba",
+    "/Empathy/assets/screens/EmpMenuPhone.png": "183c1d463a221ee92e7ff9e13c8866a4294fb868",
+    "/Empathy/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "/Empathy/index.html": "e9440296c20e7f21b30412fca55b8f196ab5b4fe",
+    "/Empathy/main.84eacdbed71255d2.js": "8a4c17924fd0de1254cd3ca78de3f89adfb7efd9",
+    "/Empathy/manifest.webmanifest": "4bd6822556a595cd90f1017c23217631a1078032",
+    "/Empathy/polyfills.10fc09705e1391cf.js": "086f799186bd6ac2ed3ae51c72482dbe09888fb7",
+    "/Empathy/runtime.2436edfd8624993c.js": "c383a83372654ba9bcaad804182571d4165b14dc",
+    "/Empathy/styles.6fbe14d944709c3e.css": "8247ef44f910cb03093fc0613a534e6a4f88289a"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
