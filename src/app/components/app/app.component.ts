@@ -1,3 +1,4 @@
+import 'zone.js/plugins/zone-patch-rxjs';
 import { Component } from '@angular/core';
 
 @Component({
