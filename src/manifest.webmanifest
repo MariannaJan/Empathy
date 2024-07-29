@@ -1,8 +1,8 @@
 {
   "name": "Empathy",
   "short_name": "Empathy",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "theme_color": "#294200",
+  "background_color": "#1f3700",
   "display": "standalone",
   "scope": "./",
   "start_url": "./game",

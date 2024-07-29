@@ -1,0 +1,11 @@
+<h3>Stories</h3>
+
+<p (click)="addStory()">Add story</p>
+
+<ul>
+  @for (story of stories$ | async | async; track story.id; let idx = $index) {
+    <li>Item #{{ idx }}: {{ story.name }}</li>
+  }
+</ul>
+
+<p (click)="replicate()">Replicate!</p>
