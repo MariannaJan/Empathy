@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1723017275650,
+  "timestamp": 1723137357468,
   "index": "/Empathy/index.html",
   "assetGroups": [
     {
@@ -15,7 +15,7 @@
         "/Empathy/8.1311afd52df6a7f9.js",
         "/Empathy/favicon.ico",
         "/Empathy/index.html",
-        "/Empathy/main.558a6e864804ad9e.js",
+        "/Empathy/main.d0e899e691f02d3f.js",
         "/Empathy/manifest.webmanifest",
         "/Empathy/polyfills.10fc09705e1391cf.js",
         "/Empathy/runtime.0e90cf6414f9e814.js",
@@ -39,6 +39,7 @@
         "/Empathy/assets/icons/icon-512x512.png",
         "/Empathy/assets/icons/icon-72x72.png",
         "/Empathy/assets/icons/icon-96x96.png",
+        "/Empathy/assets/interface/Detective.jpg",
         "/Empathy/assets/screens/EmpMenu.png",
         "/Empathy/assets/screens/EmpMenuPhone.png"
       ],
@@ -57,11 +58,12 @@
     "/Empathy/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
     "/Empathy/assets/icons/icon-72x72.png": "279825a1ac4377032ae996a1832c641e33ccf1b6",
     "/Empathy/assets/icons/icon-96x96.png": "592885efcbfee27e5e20be4fa3043589390d2740",
+    "/Empathy/assets/interface/Detective.jpg": "2cfad5e9f9e782050d2425133219c0b32f616fec",
     "/Empathy/assets/screens/EmpMenu.png": "533a8ff3b9bd636739f474135f4b6fc8f7d02fba",
     "/Empathy/assets/screens/EmpMenuPhone.png": "183c1d463a221ee92e7ff9e13c8866a4294fb868",
     "/Empathy/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/Empathy/index.html": "53510190d0e58574c7754dd1272dfbd9cafb9a92",
-    "/Empathy/main.558a6e864804ad9e.js": "124cd992a25ed8a07a1c863b0392f77bec654b9a",
+    "/Empathy/index.html": "7888452853707743dc54c3cf40931c99f014066a",
+    "/Empathy/main.d0e899e691f02d3f.js": "2f05a8b4927abbc3a2f75410d1fb1d07c054d08a",
     "/Empathy/manifest.webmanifest": "4bd6822556a595cd90f1017c23217631a1078032",
     "/Empathy/polyfills.10fc09705e1391cf.js": "086f799186bd6ac2ed3ae51c72482dbe09888fb7",
     "/Empathy/runtime.0e90cf6414f9e814.js": "e47088601c17a362cd6645d6c6fd484c50b892ea",
