@@ -3,7 +3,7 @@ import { StoryInterface } from "src/app/models/story.interface";
 
 export const STORIES_SCHEMA: RxJsonSchema<StoryInterface> = {
     version: 0,
-    primaryKey: `id`,
+    primaryKey: 'id',
     type: 'object',
     properties: {
         id: {
@@ -13,11 +13,12 @@ export const STORIES_SCHEMA: RxJsonSchema<StoryInterface> = {
         name: {
             type: 'string',
         },
-        is_premium: {
-            type: 'boolean',
-        },
         languages: {
             type: 'array',
+        },
+        description: {
+            type: 'string'
         }
-    }
+    },
+    required: ['id', 'name', 'languages'],
 };

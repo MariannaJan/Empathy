@@ -1,8 +1,8 @@
+import { LANGUAGES } from "./languages.enum";
+
 export interface StoryInterface {
     id: string;
     name: string;
-    is_premium: boolean;
-    languages: string[];
+    languages: Array<LANGUAGES>;
+    description?: string;
 }
-
-export type InsertStoryInterface = Omit<StoryInterface, 'id'>;

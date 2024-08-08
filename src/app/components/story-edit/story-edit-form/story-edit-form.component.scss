@@ -1,0 +1,8 @@
+.form-container::ng-deep {
+    display: flex;
+    flex-direction: column;
+}
+.button-container::ng-deep {
+    display: flex;
+    justify-content: space-between;
+}

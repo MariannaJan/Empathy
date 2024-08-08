@@ -1,0 +1,27 @@
+<div class="game-container">
+    @if(chapter$ | async | async; as chapter){<div class="stats-area">
+        {{chapter.empathyName | titlecase}}: 65
+        <mat-progress-bar
+            [mode]="'determinate'"
+            [value]="65"
+            [bufferValue]="100">
+        </mat-progress-bar>
+        {{ chapter.sympathyName | titlecase }}: 100
+        <mat-progress-bar
+            [mode]="'determinate'"
+            [value]="100"
+            [bufferValue]="100">
+        </mat-progress-bar>
+    </div>}
+    <game-text [text]="text" class="text-area"></game-text>
+    <div class="button-area">
+        <button mat-fab extended>
+            Inventory
+            <mat-icon>business_center</mat-icon>
+        </button>
+        <button mat-fab extended>
+            Info
+            <mat-icon>menu_book</mat-icon>
+        </button>
+    </div>
+</div>

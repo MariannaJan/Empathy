@@ -1,0 +1,16 @@
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    row-gap: 15px;
+    flex-wrap: wrap;
+  }
+  
+.button-container {
+    display: flex;
+    justify-content: center;
+    width: 150px;
+}
+
+.card-footer {
+  padding: 16px;
+}

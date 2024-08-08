@@ -1,9 +1,10 @@
-/* eslint-disable prettier/prettier */
-import { RxCollection, RxCollectionCreator, RxDatabase } from 'rxdb';
+import { RxCollection, RxCollectionCreator, RxDatabase, RxDocument } from 'rxdb';
 import { USER_STATE_SCHEMA } from './localSchemas/user-state.schema';
 import { STORIES_SCHEMA } from './localSchemas/stories.schema';
 import { UserStateInterface } from 'src/app/models/user-state.interface';
 import { StoryInterface } from 'src/app/models/story.interface';
+import { CHAPTERS_SCHEMA } from './localSchemas/chapters.schema';
+import { ChapterInterface } from 'src/app/models/chapter.interface';
 
 
 //local DB
@@ -13,11 +14,13 @@ export const LOCAL_DB_NAME = 'local_db';
 export enum COLLECTION_NAMES {
     USER_STATE = 'user_state',
     STORIES = 'stories',
+    CHAPTERS = 'chapters',
 }
 
-export type LocalDbDocsType = UserStateInterface & StoryInterface;
+
 export type LocalDbCollectionsType = {
-    [key in COLLECTION_NAMES]: RxCollectionCreator<LocalDbDocsType>;
+    [key in COLLECTION_NAMES]: RxCollectionCreator<UserStateInterface> | RxCollectionCreator<StoryInterface> | RxCollectionCreator<ChapterInterface>;
+
 };
 export type LocalDbType = RxDatabase<{ [key in COLLECTION_NAMES]: RxCollection }>
 
@@ -28,6 +31,9 @@ export const LOCAL_DB_SETUP: LocalDbCollectionsType = {
     stories: {
         schema: STORIES_SCHEMA,
     },
+    chapters: {
+        schema: CHAPTERS_SCHEMA,
+    }
 };
 
 // remote DB

@@ -1,0 +1,40 @@
+.game-container {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    justify-content: space-between;
+}
+
+.stats-area {
+    flex-basis: 0;
+    flex-grow: 1;
+    & mat-progress-bar {
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+}
+
+.text-area {
+    flex-basis: 0;
+    flex-grow: 7;
+    outline: 2px solid white;
+    padding: 15px;
+    font-size: 18px;
+    line-height: 25px;
+}
+
+.button-area {
+    flex-basis: 0;
+    flex-grow: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-around;
+    row-gap: 15px;
+
+    & button {
+       width: 150px;
+       height: 70px; 
+    }
+}

@@ -1,19 +1,15 @@
 <mat-toolbar>
-    <span>Empathy</span>
+    <span routerLink="/game">Empathy</span>
     <span class="spacer"></span>
     <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-            <a routerLink="/game">
+        <button mat-menu-item routerLink="/game">
                 <span data-test-id="game-entry">Game</span>
-            </a>
         </button>
-        <button mat-menu-item>
-            <a routerLink="/editor">
+        <button mat-menu-item routerLink="/editor">
                 <span data-test-id="editor-entry">Editor</span>
-            </a>
         </button>
     </mat-menu>
   </mat-toolbar>
