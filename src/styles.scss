@@ -1,5 +1,8 @@
 //import custom themes
 @use './styles/m3-theme.scss' as *;
+
+@use 'sass:map';
+
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
@@ -15,6 +18,9 @@
 // that you are using.
 :root {
   @include mat.all-component-themes($dark-theme);
+  @include mat.system-level-colors($dark-theme);
+  @include mat.system-level-typography($dark-theme);
+  // --sys-background:#{$main_background_color};
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { isDevMode } from '@angular/core';
 import { getRxStorageDexie } from 'rxdb/plugins/storage-dexie';
-import { addRxPlugin, createRxDatabase } from 'rxdb';
+import { RxDocument, addRxPlugin, createRxDatabase } from 'rxdb';
+import { RxDBCleanupPlugin } from 'rxdb/plugins/cleanup';
+import { RxDBLeaderElectionPlugin } from 'rxdb/plugins/leader-election';
 import { v4 as uuidv4 } from 'uuid';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 
@@ -24,10 +26,7 @@ import {
   LocalDbType,
   REPLICATION_IDENTIFIER,
 } from './db-settings';
-import {
-  InsertStoryInterface,
-  StoryInterface,
-} from 'src/app/models/story.interface';
+import { StoryInterface } from 'src/app/models/story.interface';
 
 
 @Injectable({
@@ -51,11 +50,52 @@ export class DbService {
         addRxPlugin(module.RxDBDevModePlugin)
       );
     }
+    addRxPlugin(RxDBLeaderElectionPlugin);
+    addRxPlugin(RxDBCleanupPlugin);
 
     const database = await createRxDatabase({
       name: dbName,
       storage: getRxStorageDexie(),
       eventReduce: true,
+      cleanupPolicy: {
+        /**
+         * The minimum time in milliseconds for how long
+         * a document has to be deleted before it is
+         * purged by the cleanup.
+         * [default=one month]
+         */
+        minimumDeletedTime: 1000 * 60 * 60 * 24 * 31, // one month,
+        /**
+         * The minimum amount of that that the RxCollection must have existed.
+         * This ensures that at the initial page load, more important
+         * tasks are not slowed down because a cleanup process is running.
+         * [default=60 seconds]
+         */
+        minimumCollectionAge: 1000 * 60, // 60 seconds
+        /**
+         * After the initial cleanup is done,
+         * a new cleanup is started after [runEach] milliseconds 
+         * [default=5 minutes]
+         */
+        runEach: 1000 * 60 * 5, // 5 minutes
+        /**
+         * If set to true,
+         * RxDB will await all running replications
+         * to not have a replication cycle running.
+         * This ensures we do not remove deleted documents
+         * when they might not have already been replicated.
+         * [default=true]
+         */
+        awaitReplicationsInSync: true,
+        /**
+         * If true, it will only start the cleanup
+         * when the current instance is also the leader.
+         * This ensures that when RxDB is used in multiInstance mode,
+         * only one instance will start the cleanup.
+         * [default=true]
+         */
+        waitForLeadership: true
+      }
     });
 
     await database.addCollections(dbCollections);
@@ -66,7 +106,7 @@ export class DbService {
     collectionName: COLLECTION_NAMES,
     document: Omit<T, 'id'>,
     id?: string
-  ): Promise<T> {
+  ): Promise<RxDocument<T>> {
     return this.localDb
       .then(db => {
         const newDocument = {
@@ -88,7 +128,7 @@ export class DbService {
   public getDocumentsByIds<T>(
     collectionName: COLLECTION_NAMES,
     ids: string[]
-  ): Promise<BehaviorSubject<Map<string, T>>> {
+  ): Promise<BehaviorSubject<Map<string, RxDocument<T>>>> {
     return this.localDb
       .then(db => {
         return db[collectionName].findByIds(ids).$;
@@ -106,9 +146,9 @@ export class DbService {
   public async getDocumentById<T>(
     collectionName: COLLECTION_NAMES,
     id: string
-  ): Promise<Observable<T>> {
+  ): Promise<Observable<RxDocument<T>>> {
     const documents$ = await this.getDocumentsByIds<T>(collectionName, [id]);
-    return documents$.pipe(map(documents => documents.get(id) as unknown as T));
+    return documents$.pipe(map(documents => documents.get(id) as unknown as RxDocument<T>));
   }
 
   public getAllCollectionDocs<T>(
@@ -128,37 +168,42 @@ export class DbService {
       });
   }
 
-  // actual implementations for game and editor
-
-  public async getStories(): Promise<BehaviorSubject<StoryInterface[]>> {
-    return await this.getAllCollectionDocs<StoryInterface>(
-      COLLECTION_NAMES.STORIES
-    );
+  public async updateDocument<T>(
+    collectionName: COLLECTION_NAMES,
+    documentId: string,
+    newDocument: T): Promise<RxDocument<T>> {
+    const db = await this.localDb;
+    return db[collectionName].findByIds([documentId]).exec()
+      .then((docs) => docs.get(documentId) as unknown as RxDocument<T>)
+      .then((document) => document.patch(newDocument))
+      .catch((e) => {
+        console.log(`LOL: Error on updating document id: ${documentId} in collection ${collectionName}: ${e}`);
+        throw new Error((`LOL: Error on updating document id: ${documentId} in collection ${collectionName}: ${e}`));
+      });
   }
 
-  public async getStoryById(
-    id: string
-  ): Promise<Observable<StoryInterface | undefined>> {
-    const story = await this.getDocumentById<StoryInterface>(
-      COLLECTION_NAMES.STORIES,
-      id
-    );
-    console.log(`Story: ${JSON.stringify(story)}`);
-    return story;
+  public async deleteDocument<T>(
+    collectionName: COLLECTION_NAMES,
+    documentId: string,
+  ): Promise<RxDocument<T>> {
+    const db = await this.localDb;
+    return db[collectionName].findByIds([documentId]).exec()
+      .then((docs) => docs.get(documentId) as unknown as RxDocument<T>)
+      .then((document) => document.remove())
+      .catch((e) => {
+        console.log(`LOL: Error on removing document id: ${documentId} from collection: ${collectionName}`);
+        throw new Error(`LOL: Error on removing document id: ${documentId} from collection: ${collectionName}`);
+      })
   }
 
-  public addStory(
-    newStory: InsertStoryInterface,
-    id?: string
-  ): Promise<StoryInterface> {
-    return this.addDocument<StoryInterface>(
-      COLLECTION_NAMES.STORIES,
-      newStory,
-      id
-    );
+  public async cleanupCollection(collectionName: COLLECTION_NAMES,) {
+    const db = await this.localDb;
+    await db[collectionName].cleanup(0);
   }
 
-  public async replicateCollection(collectionName = COLLECTION_NAMES.STORIES): Promise<RxFirestoreReplicationState<DocumentData>> {
+  // remote database
+
+  public async replicateCollection(collectionName: COLLECTION_NAMES): Promise<RxFirestoreReplicationState<DocumentData>> {
     const firestoreDatabase = getFirestore(this.firebaseApp);
     const firestoreCollection: CollectionReference<DocumentData, DocumentData> = collection(firestoreDatabase, COLLECTION_NAMES.STORIES);
     const localCollection = (await this.localDb).collections[collectionName];
@@ -180,4 +225,18 @@ export class DbService {
     console.log(`LOL: REPLICATION for COLEECTION: ${collectionName}: ${replicationState.replicationIdentifier}`);
     return replicationState;
   }
+
+  // actual implementations for game and editor
+
+  public async getStoryById(
+    id: string
+  ): Promise<Observable<StoryInterface | undefined>> {
+    const story = await this.getDocumentById<StoryInterface>(
+      COLLECTION_NAMES.STORIES,
+      id
+    );
+    console.log(`Story: ${JSON.stringify(story)}`);
+    return story;
+  }
+
 }

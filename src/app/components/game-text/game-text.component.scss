@@ -1,0 +1,7 @@
+.ref {
+    color: red;
+    cursor: pointer;
+    &:hover {
+        color: green;
+    }
+}

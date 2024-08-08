@@ -1,0 +1,18 @@
+@if (story$ | async | async; as story) {
+    <h2 class="title">{{ story.name }}</h2>
+}
+
+@for (chapter of chapters$ | async | async; track chapter.id) {
+    <mat-card appearance="outlined"  [routerLink]="['/gameboard', chapter.id]">
+        <mat-card-header>
+            <mat-card-title>
+                {{chapter.chapterNumber}}: {{chapter.name}}
+                @if (chapter.is_premium) {
+                    <mat-icon>star</mat-icon>
+                }
+            </mat-card-title>
+            <mat-card-subtitle>{{ chapter.author }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>{{chapter.description}}</mat-card-content>
+    </mat-card>
+}

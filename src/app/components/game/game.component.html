@@ -1,5 +1,12 @@
-<p>game works!</p>
-
 <h3>Stories</h3>
-
+@for (story of stories$ | async | async; track story.id; let idx = $index) {
+    <mat-card appearance="outlined" [routerLink]="['/chapters', story.id]">
+        <mat-card-header>
+            <mat-card-title>{{ idx }} {{ story.name }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content >
+            {{story.description}}
+        </mat-card-content>
+    </mat-card>
+}
 
