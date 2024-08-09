@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1723137357468,
+  "timestamp": 1723200009422,
   "index": "/Empathy/index.html",
   "assetGroups": [
     {
@@ -15,7 +15,7 @@
         "/Empathy/8.1311afd52df6a7f9.js",
         "/Empathy/favicon.ico",
         "/Empathy/index.html",
-        "/Empathy/main.d0e899e691f02d3f.js",
+        "/Empathy/main.1c6189d873d47b06.js",
         "/Empathy/manifest.webmanifest",
         "/Empathy/polyfills.10fc09705e1391cf.js",
         "/Empathy/runtime.0e90cf6414f9e814.js",
@@ -62,8 +62,8 @@
     "/Empathy/assets/screens/EmpMenu.png": "533a8ff3b9bd636739f474135f4b6fc8f7d02fba",
     "/Empathy/assets/screens/EmpMenuPhone.png": "183c1d463a221ee92e7ff9e13c8866a4294fb868",
     "/Empathy/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/Empathy/index.html": "7888452853707743dc54c3cf40931c99f014066a",
-    "/Empathy/main.d0e899e691f02d3f.js": "2f05a8b4927abbc3a2f75410d1fb1d07c054d08a",
+    "/Empathy/index.html": "2a9473636415880eb9bb36f27bf0926d31154934",
+    "/Empathy/main.1c6189d873d47b06.js": "c6700141d07af78630e4882b0ae35a77b3c21487",
     "/Empathy/manifest.webmanifest": "4bd6822556a595cd90f1017c23217631a1078032",
     "/Empathy/polyfills.10fc09705e1391cf.js": "086f799186bd6ac2ed3ae51c72482dbe09888fb7",
     "/Empathy/runtime.0e90cf6414f9e814.js": "e47088601c17a362cd6645d6c6fd484c50b892ea",
