@@ -1,0 +1,29 @@
+<div class="edit-stories-container">
+    <a mat-fab extended [routerLink]="['/editor/stories', null]" class="button-container">
+        <mat-icon>add</mat-icon>
+        Add story
+    </a>
+    <div class="stories">
+        @for (story of stories$ | async | async; track story.id; let idx = $index) {
+            <mat-card appearance="outlined">
+            <mat-card-content>{{ idx }} {{ story.name }}</mat-card-content>
+            <mat-card-footer class="card-footer">
+                <mat-chip-set aria-label="Story-edit-actions">
+                    <mat-chip  [routerLink]="['/editor/stories', story.id]">
+                        <mat-icon>edit</mat-icon>
+                        Edit
+                    </mat-chip>
+                    <mat-chip (click)="delete(story)">
+                        <mat-icon>delete</mat-icon>
+                        Delete
+                    </mat-chip>
+                    <mat-chip  [routerLink]="['/editor/stories', story.id, 'chapters']">
+                        <mat-icon>edit_square</mat-icon>
+                        Chapters
+                    </mat-chip>
+                </mat-chip-set>
+            </mat-card-footer>
+            </mat-card>
+        }
+    </div>
+</div>

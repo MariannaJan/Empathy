@@ -1,0 +1,17 @@
+.profile-edit {
+    margin-top: 15px;
+}
+
+mat-panel-title {
+    & span {
+        font-weight: bold;
+        padding-left: 15px;
+    }
+    & mat-icon {
+        margin-left: 15px;
+    }
+}
+
+.deleteForm {
+    padding-left: 16px;
+}

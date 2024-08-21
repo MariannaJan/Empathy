@@ -1,0 +1,17 @@
+.edit-stories-container {
+    display: flex;
+    flex-direction: column;
+    & mat-card {
+        margin-top: 15px;
+    }
+}
+
+.stories {
+    height: 70vh;
+    overflow-y: auto;
+    margin-top: 15px;
+}
+
+.card-footer {
+    padding: 15px;
+  }

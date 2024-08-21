@@ -1,0 +1,25 @@
+<div class="login-container">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <h3>Register</h3>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email">
+            @if(registerForm.get('email')?.hasError('required')){
+                <mat-error>Email is required</mat-error>
+            }
+            @if(registerForm.get('email')?.hasError('email')){
+                <mat-error>Not a valid email</mat-error>
+            }
+        </mat-form-field>
+        <create-password-form-fragment formControlName="password"></create-password-form-fragment>
+        <button mat-fab extended type="submit" [disabled]="!registerForm.valid">
+            <mat-icon>person_edit</mat-icon>
+            Register
+        </button>
+    </form>
+    <button mat-stroked-button routerLink="/signin">Sign In</button>
+    <button mat-button routerLink="">
+        <mat-icon>arrow_back</mat-icon>
+        Back to start
+    </button>
+</div>

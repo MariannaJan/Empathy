@@ -1,0 +1,22 @@
+<form [formGroup]="changeEmailForm" (ngSubmit)="changeEmail()">
+    <mat-form-field>
+        <mat-label>New email</mat-label>
+        <input matInput type="email" formControlName="email"/>
+        @if(changeEmailForm.get('email')?.hasError('required')){
+            <mat-error>Email is required</mat-error>
+        }
+        @if(changeEmailForm.get('email')?.hasError('email')){
+            <mat-error>Not a valid email</mat-error>
+        }
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password"/>
+        @if(changeEmailForm.get('password')?.hasError('required')){
+            <mat-error>Password is required</mat-error>
+        }
+    </mat-form-field>
+    <button mat-fab extended type="submit" [disabled]="!changeEmailForm.valid">
+        <mat-icon>check</mat-icon>Change email
+    </button>
+</form>

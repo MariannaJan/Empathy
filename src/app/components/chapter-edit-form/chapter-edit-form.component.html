@@ -1,0 +1,68 @@
+<form [formGroup]="chapterEditForm" (ngSubmit)="save()" class="form-container">
+    <mat-form-field appearance="outline">
+        <mat-label>Chapter id</mat-label>
+        <input matInput type="text" formControlName="id" readonly placeholder="Save chapter to add id">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Story</mat-label>
+        <mat-select formControlName="story">
+            @for(story of stories$ | async; let idx = $index; track idx) {
+                <mat-option [value]="story.id">{{ story.name }}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Chapter name</mat-label>
+        <input matInput type="text" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <mat-label>Chapter number</mat-label>
+        <input matInput type="number" formControlName="chapterNo">
+      </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Language</mat-label>
+        <mat-select formControlName="language">
+            @for(language of availableLanguages; let idx = $index; track idx) {
+                <mat-option [value]="language">{{ language }}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Empathy name</mat-label>
+        <input matInput type="text" formControlName="empathyName">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Sympathy name</mat-label>
+        <input matInput type="text" formControlName="sympathyName">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Author</mat-label>
+        <input matInput type="text" formControlName="author">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput placeholder="A short description of the chapter content" formControlName="description"></textarea>
+      </mat-form-field>
+
+    <mat-slide-toggle labelPosition="before" formControlName="isPremium">Premium: </mat-slide-toggle>
+
+    <div class="button-container">
+        <button mat-fab extended [routerLink]="['/editor/stories', storyId, 'chapters']">
+            <mat-icon>arrow_back</mat-icon>
+            Back to chapters
+        </button>
+        <button mat-fab extended type="submit" [disabled]="!chapterEditForm.valid" style="align-self: flex-start;">
+            <mat-icon>save</mat-icon>
+            Save chapter
+        </button>
+    </div>
+</form>
+

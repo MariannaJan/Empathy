@@ -1,12 +1,12 @@
 <div class="game-container">
     @if(chapter$ | async | async; as chapter){<div class="stats-area">
-        {{chapter.empathyName | titlecase}}: 65
+        {{chapter.empathy_name | titlecase}}: 65
         <mat-progress-bar
             [mode]="'determinate'"
             [value]="65"
             [bufferValue]="100">
         </mat-progress-bar>
-        {{ chapter.sympathyName | titlecase }}: 100
+        {{ chapter.sympathy_name | titlecase }}: 100
         <mat-progress-bar
             [mode]="'determinate'"
             [value]="100"
