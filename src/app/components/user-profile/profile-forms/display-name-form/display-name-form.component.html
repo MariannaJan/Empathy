@@ -1,0 +1,18 @@
+<form [formGroup]="displayNameForm" (ngSubmit)="changeDisplayName()">
+    <mat-form-field>
+        <mat-label>Display name</mat-label>
+        <input matInput type="text" formControlName="displayName"/>
+        @if(displayNameForm.get('displayName')?.getError('required')) {
+            <mat-error>Can't be empty</mat-error>
+        }
+        @if(displayNameForm.get('displayName')?.getError('minlength')) {
+            <mat-error>Minimum {{displayNameForm.get('displayName')?.getError('minlength')['requiredLength']}} characters</mat-error>
+        }
+        @if(displayNameForm.get('displayName')?.getError('maxlength')) {
+            <mat-error>Minimum {{displayNameForm.get('displayName')?.getError('maxlength')['requiredLength']}} characters</mat-error>
+        }
+    </mat-form-field>
+    <button mat-fab extended type="submit" [disabled]="!displayNameForm.valid">
+        <mat-icon>check</mat-icon>Set
+    </button>
+</form>

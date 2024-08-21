@@ -1,0 +1,13 @@
+<h3>Stories</h3>
+<router-outlet></router-outlet>
+@for (story of stories$ | async; track story.id; let idx = $index) {
+    <mat-card appearance="outlined" [routerLink]="['/library/story', story.id]">
+        <mat-card-header>
+            <mat-card-title>{{ idx }} {{ story.name }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content >
+            {{story.description}}
+        </mat-card-content>
+    </mat-card>
+}
+

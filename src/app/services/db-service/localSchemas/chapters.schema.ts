@@ -10,10 +10,10 @@ export const CHAPTERS_SCHEMA: RxJsonSchema<ChapterInterface> = {
             type: 'string',
             maxLength: 100,
         },
-        chapterNumber: {
+        chapter_number: {
             type: 'number',
         },
-        storyId: {
+        story_id: {
             type: 'string',
         },
         name: {
@@ -34,12 +34,12 @@ export const CHAPTERS_SCHEMA: RxJsonSchema<ChapterInterface> = {
         description: {
             type: 'string',
         },
-        empathyName: {
+        empathy_name: {
             type: 'string',
         },
-        sympathyName: {
+        sympathy_name: {
             type: 'string',
         },
     },
-    required: ['id', 'chapterNumber', 'storyId', 'name', 'language', 'empathyName', 'sympathyName'],
+    required: ['id', 'chapter_number', 'story_id', 'name', 'language', 'empathy_name', 'sympathy_name'],
 }

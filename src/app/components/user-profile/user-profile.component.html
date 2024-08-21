@@ -1,0 +1,63 @@
+<h2>Profile</h2>
+
+@if(provider === 'password') {
+    <div class="profile-edit">
+        <mat-accordion>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Display name: <span>{{authUser?.displayName || 'Not set'}}</span></mat-panel-title>
+                </mat-expansion-panel-header>
+                <display-name-form></display-name-form>
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Email: <span>{{authUser?.email}}</span></mat-panel-title>
+                </mat-expansion-panel-header>
+                <change-email-form></change-email-form>
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Verified: <mat-icon>{{authUser?.emailVerified ? 'mark_email_read' : 'do_not_disturb_on'}}</mat-icon></mat-panel-title>
+                </mat-expansion-panel-header>
+                @if(!authUser?.emailVerified){
+                    <button mat-fab extended (click)="verifyEmail()">Verify email</button>
+                }
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Change password</mat-panel-title>
+                </mat-expansion-panel-header>
+                <change-password-form [email]="authUser?.email || null"></change-password-form>
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Delete account</mat-panel-title>
+                </mat-expansion-panel-header>
+                <delete-account-form [provider]="provider"></delete-account-form>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+} @else if(provider === 'google.com') {
+    <mat-list>
+        <mat-list-item>
+            <span matListItemTitle>{{ authUser?.email }}</span>
+            <span matListItemLine>Verified email</span>
+        </mat-list-item>
+        <mat-list-item>
+            <span matListItemTitle>{{ authUser?.displayName }}</span>
+            <span>Display name</span>
+        </mat-list-item>
+        <mat-list-item (click)="showDeleteForm=!showDeleteForm">
+            <span matListItemTitle>Delete account</span>
+            <span>
+            </span>
+        </mat-list-item>
+    </mat-list>
+    @if(showDeleteForm) {
+        <div class="deleteForm">
+            <delete-account-form [provider]="provider"></delete-account-form>
+        </div>
+    }
+}
+
+<button mat-button routerLink="">Sign in as different user</button>

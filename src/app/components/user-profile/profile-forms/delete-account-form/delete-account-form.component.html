@@ -1,0 +1,21 @@
+@if(provider==='password'){
+<form [formGroup]="deleteAccountForm" (ngSubmit)="showDeleteDialog()">
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password"/>
+        @if(deleteAccountForm.get('password')?.hasError('required')){
+            <mat-error>Password is required</mat-error>
+        }
+    </mat-form-field>
+    <button mat-fab extended type="submit" [disabled]="!deleteAccountForm.valid">
+        <mat-icon>delete_forever</mat-icon>Delete account
+    </button>
+</form>
+} @else {
+    <button mat-fab extended (click)="showDeleteDialog()">
+        <mat-icon>delete_forever</mat-icon>Delete account
+    </button>
+}
+
+
+

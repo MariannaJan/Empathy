@@ -7,26 +7,14 @@ import { RxDBLeaderElectionPlugin } from 'rxdb/plugins/leader-election';
 import { v4 as uuidv4 } from 'uuid';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 
-import { FirebaseApp, initializeApp } from "firebase/app";
 import {
-  getFirestore,
-  collection,
-  CollectionReference,
-  DocumentData
-} from 'firebase/firestore';
-
-import { RxFirestoreReplicationState, replicateFirestore } from 'rxdb/plugins/replication-firestore';
-
-import {
-  FIREBASE_CONFIG,
   COLLECTION_NAMES,
   LOCAL_DB_NAME,
   LOCAL_DB_SETUP,
   LocalDbCollectionsType,
   LocalDbType,
-  REPLICATION_IDENTIFIER,
 } from './db-settings';
-import { StoryInterface } from 'src/app/models/story.interface';
+import { RemoteDbService } from '../remote-db-service/remote-db.service';
 
 
 @Injectable({
@@ -34,11 +22,11 @@ import { StoryInterface } from 'src/app/models/story.interface';
 })
 export class DbService {
   public localDb: Promise<LocalDbType>;
-  public firebaseApp: FirebaseApp;
 
-  constructor() {
+  constructor(
+    private remoteDbService: RemoteDbService,
+  ) {
     this.localDb = this.setupLocalDb(LOCAL_DB_NAME, LOCAL_DB_SETUP);
-    this.firebaseApp = initializeApp(FIREBASE_CONFIG);
   }
 
   public async setupLocalDb(
@@ -201,42 +189,11 @@ export class DbService {
     await db[collectionName].cleanup(0);
   }
 
-  // remote database
-
-  public async replicateCollection(collectionName: COLLECTION_NAMES): Promise<RxFirestoreReplicationState<DocumentData>> {
-    const firestoreDatabase = getFirestore(this.firebaseApp);
-    const firestoreCollection: CollectionReference<DocumentData, DocumentData> = collection(firestoreDatabase, COLLECTION_NAMES.STORIES);
+  public async replicateCollection(
+    collectionName: COLLECTION_NAMES
+  ): Promise<void> {
     const localCollection = (await this.localDb).collections[collectionName];
-
-    const replicationState = replicateFirestore(
-      {
-        collection: localCollection,
-        firestore: {
-          projectId: FIREBASE_CONFIG.projectId,
-          database: firestoreDatabase,
-          collection: firestoreCollection
-        },
-        pull: {},
-        push: {},
-        live: true,
-        replicationIdentifier: REPLICATION_IDENTIFIER,
-      }
-    );
-    console.log(`LOL: REPLICATION for COLEECTION: ${collectionName}: ${replicationState.replicationIdentifier}`);
-    return replicationState;
-  }
-
-  // actual implementations for game and editor
-
-  public async getStoryById(
-    id: string
-  ): Promise<Observable<StoryInterface | undefined>> {
-    const story = await this.getDocumentById<StoryInterface>(
-      COLLECTION_NAMES.STORIES,
-      id
-    );
-    console.log(`Story: ${JSON.stringify(story)}`);
-    return story;
+    this.remoteDbService.replicateCollection(collectionName, localCollection);
   }
 
 }

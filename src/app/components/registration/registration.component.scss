@@ -1,0 +1,21 @@
+.login-container::ng-deep {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    align-content: space-around;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+form::ng-deep {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-error {
+    margin-bottom: 15px;
+    & span {
+        font-weight: bold;
+        cursor: pointer;
+    }
+}

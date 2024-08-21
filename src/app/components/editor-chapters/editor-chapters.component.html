@@ -1,0 +1,32 @@
+<div class="flex-container">
+    <a mat-fab extended [routerLink]="['/editor/stories', storyId, 'chapters', null]" class="button-container">
+        <mat-icon>add</mat-icon>
+        Add chapter
+    </a>
+    <a mat-fab extended routerLink="/editor/stories" class="button-container">
+        <mat-icon>arrow_back</mat-icon>
+        Stories
+    </a>
+</div>
+
+@if(story$ | async; as story) {
+<h3>{{ story.name | titlecase }} chapters</h3>
+}
+
+@for (chapter of chapters$ | async ; track chapter.id; let idx = $index) {
+    <mat-card appearance="outlined">
+      <mat-card-content>{{ idx }} {{ chapter.name }}</mat-card-content>
+      <mat-card-footer class="card-footer">
+        <mat-chip-set aria-label="chapter-edit-actions">
+          <mat-chip  [routerLink]="['/editor/stories', storyId, 'chapters', chapter.id]">
+            <mat-icon>edit</mat-icon>
+            Edit
+          </mat-chip>
+          <mat-chip (click)="delete(chapter)">
+            <mat-icon>delete</mat-icon>
+            Delete
+          </mat-chip>
+        </mat-chip-set>
+      </mat-card-footer>
+    </mat-card>
+  }

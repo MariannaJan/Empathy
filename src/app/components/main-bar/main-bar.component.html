@@ -1,15 +1,26 @@
 <mat-toolbar>
-    <span routerLink="/game">Empathy</span>
+    <span routerLink="/library">Empathy</span>
     <span class="spacer"></span>
     <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="/game">
-                <span data-test-id="game-entry">Game</span>
+        @if(isKnownUser$ | async) {
+                <button mat-menu-item routerLink="/profile">
+                        <span data-test-id="user-entry">{{ userName$ | async }}</span>
+                </button>
+        } @else {
+                <button mat-menu-item routerLink="">
+                        <span data-test-id="user-entry">{{ userName$ | async }}</span>
+                </button>
+        }
+        <button mat-menu-item routerLink="/library">
+                <span data-test-id="library-entry">Library</span>
         </button>
-        <button mat-menu-item routerLink="/editor">
-                <span data-test-id="editor-entry">Editor</span>
-        </button>
+        @if(isKnownUser$ | async) {
+                <button mat-menu-item routerLink="/editor">
+                        <span data-test-id="editor-entry">Editor</span>
+                </button>
+        }
     </mat-menu>
   </mat-toolbar>
